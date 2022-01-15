@@ -1,0 +1,7 @@
+{
+  "name": "nftickets",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
