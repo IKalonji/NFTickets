@@ -1,3 +1,11 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-content *ngIf="!user">
+    <div><ion-img src="../assets/logo/nftickets_logo.png"></ion-img></div>
+    <div style="padding: 5rem;">
+      <ion-button (click)="login('metamask')" expand="block" fill="solid" shape="round">
+      <ion-label>Metamask Login</ion-label>
+    </ion-button>
+    </div>
+  </ion-content>
+  <ion-router-outlet *ngIf="user" [routerLink]="['/home']"></ion-router-outlet>
 </ion-app>

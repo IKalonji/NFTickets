@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+    <ion-toolbar style="text-align: center;">
+      <ion-title>
+        {{title}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]=false>
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+        <ion-fab-button (click)="ticketsModal()">
+          <ion-icon name="ticket-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    <div style="text-align: center;font-weight: 700; color: blue; padding: 3rem;">
+        <ion-label>SELECT TICKET TO PURCHASE</ion-label>
+    </div>
+    <ion-grid fixed style="text-align: center;">
+      <ion-row>
+        <ion-col size="6">
+          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('taxi', 'Minibus ticket')" button>
+            <ion-card-subtitle style="padding-top: 5px;">Minibus Taxi</ion-card-subtitle>
+            <ion-card-content>
+              <ion-img src="/assets/img/taxi.png"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('reavaya', 'ReaVaya ticket')" button>
+            <ion-card-subtitle style="padding-top: 5px;">ReaVaya BRT</ion-card-subtitle>
+            <ion-card-content>
+              <ion-img src="/assets/img/reavaya.png"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('metrorail', 'MetroRail ticket')" button>
+            <ion-card-subtitle style="padding-top: 5px;">MetroRail</ion-card-subtitle>
+            <ion-card-content>
+              <ion-img src="/assets/img/metrorail.png"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('putcobus', 'Putcobus ticket')" button>
+            <ion-card-subtitle style="padding-top: 5px;">Putco Bus</ion-card-subtitle>
+            <ion-card-content>
+              <ion-img src="/assets/img/putco.png"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('metrobus', 'Metrobus ticket')" button>
+            <ion-card-subtitle style="padding-top: 5px;">MetroBus</ion-card-subtitle>
+            <ion-card-content>
+              <ion-img src="/assets/img/metrobus.png"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('gautrain', 'Gautrain ticket')" button>
+            <ion-card-subtitle style="padding-top: 5px;">Gautrain</ion-card-subtitle>
+            <ion-card-content>
+              <ion-img src="/assets/img/gautrain.png"></ion-img>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <ion-button (click)="logout()" expand="block" fill="clear" shape="round">
+        logout
+    </ion-button>
+  </ion-content>

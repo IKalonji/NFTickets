@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+    <ion-toolbar style="text-align: center;">
+      <ion-title>
+        {{title}}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]=false>
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+        <ion-fab-button (click)="closeModal()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    <div style="text-align: center;font-weight: 700; color: blue; padding: 3rem;">
+        <ion-label>Your available tickets: </ion-label>
+    </div>
+    <div style="text-align: center;">
+        <div>
+            <ion-label>Minibus ticket</ion-label>
+        </div>
+        <div>
+            <img src="../../assets/qrs/qr_code_transi.png" alt="">
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <div>
+            <ion-label>Metrobus ticket</ion-label>
+        </div>
+       <div>
+            <img src="../../assets/qrs/qrcode_api.qrserver.com.png" alt="">
+       </div>
+    </div>
+  </ion-content>

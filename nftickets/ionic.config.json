@@ -1,7 +1,10 @@
 {
-  "name": "nftickets",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+  "defaultProject": "nftickets",
+  "projects": {
+    "nftickets": {
+      "name": "nftickets",
+      "integrations": {},
+      "type": "angular"
+    }
+}
 }
