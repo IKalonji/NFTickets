@@ -8,6 +8,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketsModalComponent } from './tickets-modal/tickets-modal.component'
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TicketsModalComponent } from './tickets-modal/tickets-modal.component'
     BrowserModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]

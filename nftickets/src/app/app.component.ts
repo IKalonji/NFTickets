@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Moralis } from 'moralis';
 import { environment } from '../environments/environment';
@@ -13,8 +14,11 @@ export class AppComponent implements OnInit {
   title = 'NFTickets';
 
   user?: User;
+  unstoppable:boolean=false;
+  userName:string="";
+  unstoppableLoginSuccess=false;
 
-  constructor(private cdr: ChangeDetectorRef){}
+  constructor(private cdr: ChangeDetectorRef, private http:HttpClient){}
 
   ngOnInit() {
     Moralis.start({
@@ -53,6 +57,20 @@ export class AppComponent implements OnInit {
      */
     this.cdr.detectChanges();
   }
+
+  unstoppableLogin(){
+    this.unstoppable=true
+  }
+
+  unstoppableClicked(){
+    this.unstoppableLoginSuccess = true;
+    console.log(this.unstoppableLoginSuccess, this.user)
+    // this.http.post("http://localhost:5000/login",{login_hint:this.userName}, {headers:{}}).subscribe(data => {
+    //   this.unstoppableLoginSuccess = true;
+    //   console.log(data)
+    // })
+  }
+
 }
 
 export type User = Moralis.User<Moralis.Attributes>;

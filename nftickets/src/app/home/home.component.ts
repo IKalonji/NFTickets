@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   @Input() userAddress: any
 
-  title = "NFTickets";
+  title = "rayblue.wallet";
   metadata: any;
 
   constructor(private http: HttpClient, private modalController: ModalController, private actionSheetController: ActionSheetController, private alert: AlertController, private router: Router) { }
