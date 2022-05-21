@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar class="ion-no-border">
+        <ion-title>My NFTickets</ion-title>
+    </ion-toolbar>
+    <ion-toolbar class="ion-no-border">
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="closeModal()"><ion-icon name="arrow-back-outline"></ion-icon></ion-fab-button>
+    </ion-fab>
+
+    <div *ngIf="myTickets.length < 1">
+        <div style="text-align: center; padding-top: 5rem;">
+            <p><img src="../../assets/unavailable2.png" alt="" style="height: 200px;width: 200px;"></p>
+            <ion-label>You do not have tickets available</ion-label>
+        </div>
+    </div>
+    <div class="padding-top: 10rem;" *ngIf="myTickets.length >= 1">
+        <ion-item button *ngFor="let ticket of myTickets" (click)="showTicket(ticket)">
+            <ion-thumbnail slot="start">
+                <img src="{{ticket.image}}" />
+            </ion-thumbnail>
+            <ion-label style="font-size: 10px;"><ion-icon slot="start" name="at"></ion-icon> {{ticket.event}}</ion-label>
+            <ion-label style="font-size: 10px;"><ion-icon slot="start" name="location"></ion-icon> {{ticket.city}}</ion-label>
+            <ion-label style="font-size: 10px;"><ion-icon slot="start" name="calendar"></ion-icon> {{ticket.date}}</ion-label>
+        </ion-item>
+    </div>
+</ion-content>
+
+<style>
+    ion-header {
+    font-family: Ruda !important;
+  }
+  ion-content {
+    font-family: Ruda !important;
+  }
+</style>

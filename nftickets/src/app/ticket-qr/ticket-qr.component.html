@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar class="ion-no-border">
+        <ion-title>{{ticket.event}}</ion-title>
+    </ion-toolbar>
+    <ion-toolbar class="ion-no-border">
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="closeModal()"><ion-icon name="arrow-back-outline"></ion-icon></ion-fab-button>
+    </ion-fab>
+    <div>
+        <ion-card style="text-align: center;">
+            <ion-card-header>
+                <ion-card-subtitle>Scan at entry</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <ngx-qrcode
+                    [elementType]="elementType"
+                    [errorCorrectionLevel]="correctionLevel"
+                    [value]="value"
+                    style="width: fit-content;">
+                </ngx-qrcode>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
+
+
+<style>
+    ion-header {
+    font-family: Ruda !important;
+    }
+    ion-content {
+    font-family: Ruda !important;
+    }
+</style>

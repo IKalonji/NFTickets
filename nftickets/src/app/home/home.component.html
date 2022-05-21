@@ -1,78 +1,61 @@
-<ion-header [translucent]="true">
-    <ion-toolbar style="text-align: center;">
-      <ion-title>
-        {{title}}
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content [fullscreen]=false>
-    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-        <ion-fab-button (click)="ticketsModal()">
-          <ion-icon name="ticket-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    <div style="text-align: center;font-weight: 700; color: blue; padding: 3rem;">
-        <ion-label>SELECT TICKET TO PURCHASE</ion-label>
-    </div>
-    <ion-grid fixed style="text-align: center;">
-      <ion-row>
-        <ion-col size="6">
-          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('taxi', 'Minibus ticket')" button>
-            <ion-card-subtitle style="padding-top: 5px;">Minibus Taxi</ion-card-subtitle>
-            <ion-card-content>
-              <ion-img src="/assets/img/taxi.png"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6">
-          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('reavaya', 'ReaVaya ticket')" button>
-            <ion-card-subtitle style="padding-top: 5px;">ReaVaya BRT</ion-card-subtitle>
-            <ion-card-content>
-              <ion-img src="/assets/img/reavaya.png"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="6">
-          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('metrorail', 'MetroRail ticket')" button>
-            <ion-card-subtitle style="padding-top: 5px;">MetroRail</ion-card-subtitle>
-            <ion-card-content>
-              <ion-img src="/assets/img/metrorail.png"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6">
-          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('putcobus', 'Putcobus ticket')" button>
-            <ion-card-subtitle style="padding-top: 5px;">Putco Bus</ion-card-subtitle>
-            <ion-card-content>
-              <ion-img src="/assets/img/putco.png"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="6">
-          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('metrobus', 'Metrobus ticket')" button>
-            <ion-card-subtitle style="padding-top: 5px;">MetroBus</ion-card-subtitle>
-            <ion-card-content>
-              <ion-img src="/assets/img/metrobus.png"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6">
-          <ion-card style="border: hsla(207, 100%, 74%, 0.1) solid 3px;" (click)="ticketSelected('gautrain', 'Gautrain ticket')" button>
-            <ion-card-subtitle style="padding-top: 5px;">Gautrain</ion-card-subtitle>
-            <ion-card-content>
-              <ion-img src="/assets/img/gautrain.png"></ion-img>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <br>
-    <ion-button (click)="logout()" expand="block" fill="clear" shape="round">
-        logout
+<ion-header class="ion-no-border">
+  <ion-toolbar padding>
+    <ion-button (click)="myTickets()" fill="clear">
+      <ion-icon slot="start" name="apps" style="color: darkgrey;" size="large"></ion-icon>
     </ion-button>
-  </ion-content>
+    <ion-title style="font-family: Ruda;">
+      {{title}}
+    </ion-title>
+    <ion-button (click)="myWallet()" fill="clear" slot="end">
+      <ion-avatar>
+        <img src="../../assets/avatar.png"/>
+      </ion-avatar>
+    </ion-button>
+  </ion-toolbar>
+  <ion-toolbar >
+    <div>
+      <ion-searchbar [formControl]="searchField" debounce="100"></ion-searchbar>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-no-padding; background">
+  <div style="display: flex;justify-content: flex-end;">
+    
+  </div>
+  <div style="padding: 0%;" *ngFor="let card of cards">
+    <div style="padding-left: 10px; padding-top: 10px; padding-bottom: 0px;">
+      <ion-label>{{card.category}}</ion-label>
+    </div>
+    <div>
+      <ion-slides [options]="slideOptions">
+        <ion-slide *ngFor="let ticket of  card.tickets">
+            <ion-card button (click)="onClick(ticket, card.category)" style="width: 220px;height: 170px;" class="shadow">
+              <ion-card-header class="ion-no-padding">
+                <ion-card-title><img src="{{ticket.image}}" alt="" style="width: 118px; height:86.46px"></ion-card-title>
+              </ion-card-header>
+              <ion-card-content style="text-align: left; padding: 2px;" >
+                <li><ion-label style="font-size: 10px;"><ion-icon slot="start" name="at"></ion-icon> {{ticket.event}}</ion-label></li>
+                <li><ion-label style="font-size: 10px;"><ion-icon slot="start" name="location"></ion-icon> {{ticket.city}}</ion-label></li>
+                <li><ion-label style="font-size: 10px;"><ion-icon slot="start" name="calendar"></ion-icon> {{ticket.date}}</ion-label></li>
+              </ion-card-content>
+            </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+</ion-content>
+
+<style>
+  ion-content.background{
+    --background: url(../../assets/background/background.jpg) 0 0/100% 100% no-repeat;
+
+  }
+  ion-content {
+    font-family: Ruda !important;
+  }
+  .shadow{
+    box-shadow: -1px 1px 29px -6px rgba(166,0,0,0.81);
+-webkit-box-shadow: -1px 1px 29px -6px rgba(166,0,0,0.81);
+-moz-box-shadow: -1px 1px 29px -6px rgba(166,0,0,0.81);
+  }
+</style>

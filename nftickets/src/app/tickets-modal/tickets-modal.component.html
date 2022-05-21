@@ -1,26 +1,40 @@
-<ion-header [translucent]="true">
-    <ion-toolbar style="text-align: center;">
-      <ion-title>
-        {{title}}
-      </ion-title>
+<ion-header>
+    <ion-toolbar class="ion-no-border">
+        <ion-title>{{category}}</ion-title>
     </ion-toolbar>
-  </ion-header>
-  
-  <ion-content [fullscreen]=false>
-    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-        <ion-fab-button (click)="closeModal()">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    <div style="text-align: center;font-weight: 700; color: blue; padding: 3rem;">
-        <ion-label>Your available tickets: </ion-label>
+    <ion-toolbar class="ion-no-border">
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-no-padding; background">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="closeModal()"><ion-icon name="arrow-back-outline"></ion-icon></ion-fab-button>
+    </ion-fab>
+    <div>
+        <ion-card>
+            <ion-card-header class="ion-no-padding">
+                <ion-card-title><img src="{{ticket.image}}" alt=""></ion-card-title>
+            </ion-card-header>
+            <ion-card-content style="text-align: left; padding: 3px;" >
+                <p><ion-label style="font-size: 14px;"><ion-icon slot="start" name="at"></ion-icon> {{ticket.event}}</ion-label></p>
+                <p><ion-label style="font-size: 14px;"><ion-icon slot="start" name="location"></ion-icon> {{ticket.city}}</ion-label></p>
+                <p><ion-label style="font-size: 14px;"><ion-icon slot="start" name="calendar"></ion-icon> {{ticket.date}}</ion-label></p>
+                <p><ion-label style="font-size: 16px;"><ion-icon slot="start" name="cash-outline"></ion-icon> $CELO {{ticket.price}}</ion-label></p>
+            </ion-card-content>
+        </ion-card>
     </div>
-    <div style="text-align: center;">
-        <div>
-            <ion-label>Minibus ticket</ion-label>
-        </div>
-        <div>
-            <img src="../../assets/qrs/qr_code_transi.png" alt="">
-        </div>
+    <div>
+        <ion-button (click)="onClick()" expand="block" fill="solid" shape="round" color="success">
+            <ion-label style="font-weight: 800;">Mint NFTicket</ion-label>
+        </ion-button>
     </div>
-  </ion-content>
+
+</ion-content>
+
+<style>
+    ion-content.background{
+    --background: url(../../assets/background/background.jpg) 0 0/100% 100% no-repeat;
+    }
+    ion-content {
+    font-family: Ruda !important;
+    }
+</style>

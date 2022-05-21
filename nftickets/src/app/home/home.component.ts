@@ -1,12 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NFTStorage, File } from 'nft.storage'
-import { pack } from 'ipfs-car/pack'
-import { environment } from 'src/environments/environment';
-import { ActionSheetController, AlertController, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
+import { HomeCard } from 'src/models/home-card.model';
+import { EventTicket } from 'src/models/event-card.model';
+import { EntertainmentTicket } from 'src/models/entertainment-card.model';
+import { LeisureTicket } from 'src/models/hospitality-card.model';
+import { TransportTicket } from 'src/models/transport-card.model';
+import { FormControl } from '@angular/forms';
 import { TicketsModalComponent } from '../tickets-modal/tickets-modal.component';
-import { Moralis } from 'moralis';
-import { Router } from '@angular/router';
+import { TicketCard } from 'src/models/ticket-card.model';
+import { MyTicketsComponent } from '../my-tickets/my-tickets.component';
+import { environment } from 'src/environments/environment';
+import { BuyCryptoTransakComponent } from '../buy-crypto-transak/buy-crypto-transak.component';
 
 
 @Component({
@@ -14,138 +18,88 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit{
 
-  @Input() userAddress: any
+  title:string="NFTickets"
 
-  title = "rayblue.wallet";
-  metadata: any;
+  public searchField: FormControl;
 
-  constructor(private http: HttpClient, private modalController: ModalController, private actionSheetController: ActionSheetController, private alert: AlertController, private router: Router) { }
-
-  ngOnInit(): void {
+  slideOptions = {
+    slidesPerView: 2.5,
+    spaceBetween: -1,
+    loop:true,
   }
 
-  async ticketSelected(provider:string, description:string){
+  cards: HomeCard[] = [
+    {
+      category: "Events & Functions",
+      tickets: EventTicket
+    },
+    {
+      category: "Entertainment",
+      tickets: EntertainmentTicket
+    },
+    {
+      category: "Travel & Leisure",
+      tickets: LeisureTicket
+    },
+    {
+      category: "Transport",
+      tickets: TransportTicket
+    },
+  ]
 
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Select ticket frequency',
-      buttons: [{
-        text: 'Single ride',
-        icon: 'pricetag-outline',
-        data: 10,
-        handler: () => {
-          console.log('Single clicked');
-          this.uploadToIPFS(provider, description);
-        }
-      }, 
-      {
-        text: 'Multi ride (2-6)',
-        icon: 'pricetags-outline',
-        data: 'Data value',
-        handler: () => {
-          console.log('Multi clicked');
-          this.uploadToIPFS(provider, description);
-        }
-      }, 
-      {
-        text: 'Weekly',
-        icon: 'card-outline',
-        data: 'Data value',
-        handler: () => {
-          console.log('Weekly clicked');
-          this.uploadToIPFS(provider, description);
-        }
-      },
-      {
-        text: 'Monthly',
-        icon: 'wallet-outline',
-        data: 'Data value',
-        handler: () => {
-          console.log('Monthly clicked');
-          this.uploadToIPFS(provider, description);
-        }
-      },
-       {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        data: 'Data value',
-        handler: () => {
-          console.log('Cancel clicked');
-          this.uploadToIPFS(provider, description);
-        }
-      }]
-    });
+  constructor( 
+              private modalController: ModalController, 
+              private alert: AlertController,
+              ) {
+                this.searchField = new FormControl('');
+               }
 
-    await actionSheet.present();
+  ngOnInit(): void {}
 
-
-
-  }
-
-  async ticketsModal(){
-    const modal = await this.modalController.create({
-      component: TicketsModalComponent
-    });
-    await modal.present()
-  }
-
-  async uploadToIPFS(provider:string, description:string){
-    const client = new NFTStorage({ token: environment.nftStorage })
-    this.metadata = await client.store({
-      name: provider,
-      description: description,
-      image: new File([/* data */], 'ticketQR.jpg', { type: 'image/jpg' })
-    })
-    console.log(this.metadata.url);
-    this.mintNFT(provider, description, this.metadata.url)
-    
-  }
-
-  mintNFT(name:string, description:string, url:string, address = "0x5590882e54bB029BA24d54908CD225A1A27CB398"){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: environment.nftport
-      })
+  async onClick(ticket: TicketCard, category: string){
+    let modal = await this.modalController.create({
+      component: TicketsModalComponent,
+      componentProps: {
+        ticket: ticket,
+        category: category
       }
+    })
 
-    const body = {
-      "chain": "polygon",
-      "name": name,
-      "description": description,
-      "file_url": url,
-      "mint_to_address": address
-    }
-
-      this.http.post("https://api.nftport.xyz/v0/mints/easy/urls", body, httpOptions).subscribe(data => {
-        console.log(data)
-        this.showAlert()
-      })
+    await modal.present();
   }
-
-  async showAlert(){
-    const alerted = await this.alert.create(
-      {
-        header: "Success",
-        subHeader: "Ticket successfully minted",
-        buttons:[
-          "OK"
-        ]
+  
+  async myTickets(){
+    let modal = await this.modalController.create({
+      component: MyTicketsComponent,
       }
     )
 
-    await alerted.present();
+    await modal.present();
   }
-  
-  logout() {
-    Moralis.User.logOut()
-      .then((loggedOutUser) => console.info('logout', loggedOutUser))
-      // Set user to undefined
-      .then(() => { this.router.navigateByUrl("")})
-      // Disconnect Web3 wallet
-      .then(() => Moralis.Web3.cleanup())
-      .catch((e) => console.error('Moralis logout error:', e));
+
+  async myWallet(){
+    let walletAlert = await this.alert.create(
+      {
+        header: "Connected Wallet Address",
+        subHeader: environment.wallet,
+        buttons: ["OK", {
+          text: 'Buy Crypto',
+          handler: async () => {
+            let modal = await this.modalController.create({
+              component: BuyCryptoTransakComponent,
+              })
+
+            await modal.present()
+          }
+        }
+        ]
+      }
+    );
+
+    await walletAlert.present();
   }
 }
+
+
