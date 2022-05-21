@@ -157,7 +157,7 @@ Following will be required to run the project.
 
 See the project demo video below.
 
-[Demo](https://example.com)_
+[![DEMO](https://img.youtube.com/vi/qOL5kNVrwCI/0.jpg)](https://youtu.be/qOL5kNVrwCI)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -245,4 +245,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/IKalonji/NFTickets/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/issa-kalonji-b301851ba/
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://img.youtube.com/vi/qOL5kNVrwCI/0.jpg
